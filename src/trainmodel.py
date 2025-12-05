@@ -5,7 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 import joblib
 
 # Razliciti modeli
@@ -101,9 +101,14 @@ for name, model in models.items():
     preds = pipeline.predict(X_test)
     acc = accuracy_score(y_test, preds)
 
-    print(f"{name} accuracy: {acc:.4f}\n")
+    print(f"Accuracy: {acc:.4f}\n")
 
-    # Cuvamo najbolji model
+    # Celokupni classification report
+    print("Full classification report:\n")
+    print(classification_report(y_test, preds))
+
+
+    # Provera koji je najbolji model
     if acc > best_acc:
         best_acc = acc
         best_model = pipeline
